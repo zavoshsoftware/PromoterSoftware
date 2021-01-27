@@ -1,0 +1,90 @@
+﻿@model Models.Project
+
+@{
+		ViewBag.Title = "افزودن " + Server.HtmlDecode(Html.DisplayNameFor(model => model).ToString());
+}
+@section styles{
+	@Html.Partial("BackEndLayout/_KendoResourcesPartial")
+}
+<div class="col-md-4">
+	<div class="main-card mb-3 card">
+		@ViewBag.description
+	</div>
+</div>
+
+<div class="col-md-8">
+	<div class="main-card mb-3 card">
+		<div class="card-body">
+
+			@using (Html.BeginForm("Create", "Projects", FormMethod.Post, new { enctype = "multipart/form-data" }))
+			{
+					@Html.AntiForgeryToken()
+
+
+
+					<div class="position-relative form-group">
+						@Html.LabelFor(model => model.Title)
+
+						<input name="Title" id="Title" placeholder="@Html.DisplayNameFor(m=>m.Title)" type="text" class="form-control">
+						@Html.ValidationMessageFor(model => model.Title)
+					</div>
+					<div class="position-relative form-group">
+						@Html.LabelFor(model => model.StartDate)
+						@Html.EditorFor(m => m.StartDate)
+						@*<input name="StartDate" id="StartDate" placeholder= "@Html.DisplayNameFor(m=>m.StartDate)" type="text" class="form-control">*@
+						@Html.ValidationMessageFor(model => model.StartDate)
+					</div>
+					<div class="position-relative form-group">
+						@Html.LabelFor(model => model.EndDate)
+
+						@Html.EditorFor(m => m.EndDate)
+						@*<input name="EndDate" id="EndDate" placeholder= "@Html.DisplayNameFor(m=>m.EndDate)" type="text" class="form-control">*@
+						@Html.ValidationMessageFor(model => model.EndDate)
+					</div>
+					<div class="position-relative form-group">
+						@Html.LabelFor(model => model.CustomerId)
+
+						@Html.DropDownList("CustomerId", null, String.Empty, new { @class = "form-control" })
+						@Html.ValidationMessageFor(model => model.CustomerId)
+					</div>
+
+
+					<div class="position-relative form-group">
+						<label>ضمیمه ها</label>
+						@Html.Kendo().Upload().Name("attachments").Multiple(true).HtmlAttributes(new { @class = "form-control" })
+					</div>
+
+					<div class="position-relative form-group">
+						@Html.LabelFor(model => model.Body)
+
+						<textarea name="Body" id="Body" placeholder="@Html.DisplayNameFor(m=>m.Body)" class="form-control"></textarea>
+
+						@Html.ValidationMessageFor(model => model.Body)
+					</div>
+					<div class="position-relative form-check">
+						<label class="form-check-label">
+							@Html.CheckBoxFor(model => model.IsActive)
+							@Html.DisplayNameFor(m => m.IsActive)
+						</label>
+
+					</div>
+											<div class="position-relative form-group">
+												@Html.LabelFor(model => model.Description)
+
+												<textarea name="Description" id="Description" placeholder="@Html.DisplayNameFor(m=>m.Description)" class="form-control"></textarea>
+
+												@Html.ValidationMessageFor(model => model.Description)
+											</div>
+
+
+
+											<div class="button-box">
+												<input type="submit" value="ایجاد" class="btn btn-primary" />
+												@Html.ActionLink("بازگشت به فهرست", "Index")
+
+											</div>
+
+			}
+		</div>
+	</div>
+</div>

@@ -1,0 +1,68 @@
+﻿@model Models.Customer
+
+@{
+    ViewBag.Title = "افزودن مشتری";
+}
+
+<div class="col-md-4">
+    <div class="main-card mb-3 card">
+        @ViewBag.description
+    </div>
+</div>
+                        
+<div class="col-md-8">
+<div class="main-card mb-3 card">
+<div class="card-body">
+
+@using (Html.BeginForm("Create", "Customers",FormMethod.Post, new { enctype = "multipart/form-data" })) 
+{
+    @Html.AntiForgeryToken()
+    
+    
+
+    <div class="position-relative form-group">
+            @Html.LabelFor(model => model.Title)
+            
+                       <input name="Title" id="Title" placeholder= "@Html.DisplayNameFor(m=>m.Title)" type="text" class="form-control">
+                @Html.ValidationMessageFor(model => model.Title)
+        </div>
+    <div class="position-relative form-group">
+            @Html.LabelFor(model => model.ContactPersonFullName)
+            
+                       <input name="ContactPersonFullName" id="ContactPersonFullName" placeholder= "@Html.DisplayNameFor(m=>m.ContactPersonFullName)" type="text" class="form-control">
+                @Html.ValidationMessageFor(model => model.ContactPersonFullName)
+        </div>
+    <div class="position-relative form-group">
+            @Html.LabelFor(model => model.ContactPersonCellNumber)
+            
+                       <input name="ContactPersonCellNumber" id="ContactPersonCellNumber" placeholder= "@Html.DisplayNameFor(m=>m.ContactPersonCellNumber)" type="text" class="form-control">
+                @Html.ValidationMessageFor(model => model.ContactPersonCellNumber)
+        </div>
+			<div class="position-relative form-check">
+			 <label class="form-check-label">
+			     @Html.CheckBoxFor(model => model.IsActive)
+			 @Html.DisplayNameFor(m => m.IsActive)
+			 </label>
+            
+                       </div>
+    <div class="position-relative form-group">
+            @Html.LabelFor(model => model.Description)
+            
+                   <textarea name="Description" id="Description" placeholder= "@Html.DisplayNameFor(m=>m.Description)" class="form-control"></textarea>
+
+                @Html.ValidationMessageFor(model => model.Description)
+        </div>
+
+
+
+       <div class="button-box">
+                <input type="submit" value="ایجاد" class="btn btn-primary" />
+				@Html.ActionLink("بازگشت به فهرست", "Index")
+           
+        </div>
+   
+}
+        </div>
+        </div>
+        </div>
+

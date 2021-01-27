@@ -23,7 +23,7 @@ namespace Models
         [Required(ErrorMessage = "لطفا {0} را وارد نمایید.")]
         public string FullName { get; set; }
 
-        [Display(Name = "نام کاربری")]
+        [Display(Name = "نام کاربری / شماره موبایل")]
         [Required(ErrorMessage = "لطفا {0} را وارد نمایید.")]
         public string CellNum { get; set; }
 
@@ -36,6 +36,9 @@ namespace Models
 
         [Display(Name = "کارت ملی")]
         public string NationalCardFileUrl { get; set; }
+
+        [Display(Name = "تصویر کاربر")]
+        public string AvatarImageUrl { get; set; }
 
         [Display(Name = "کد کاربر")]
         public int? Code { get; set; }

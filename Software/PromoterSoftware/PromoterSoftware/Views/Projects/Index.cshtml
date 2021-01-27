@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Models.Project>
+
+@{
+ViewBag.Title = "فهرست پروژه ها";
+    
+}
+@section styles{
+@Html.Partial("BackEndLayout/_KendoResourcesPartial")
+}
+<div class="col-md-12">
+    <div class="main-card mb-3 card">
+        <div class="card-body">
+
+        @(Html.Kendo().Grid(Model)
+              .Name("Grid")
+              .Columns(columns =>
+                  {
+                              columns.Bound(model => model.Customer.Title);
+        columns.Bound(model => model.Title);
+        columns.Bound(model => model.StartDateStr);
+        columns.Bound(model => model.EndDateStr);
+        columns.Bound(model => model.IsActive);
+        columns.Bound(model => model.CreationDateStr);
+					columns.Bound(item => @item.Id).Title("دستورات").Filterable(false).Groupable(false)
+							.Template(@<text>
+									@Html.ActionLink("ویرایش", "Edit", new {id = @item.Id}, new {@class = "mb-2 mr-2 btn btn-primary" })
+									@Html.ActionLink("حذف", "Delete", new {id = @item.Id}, new {@class = "mb-2 mr-2 btn btn-warning" })
+									@Html.ActionLink("مدیریت جزییات", "index","ProjectDetails", new {id = @item.Id}, new {@class = "mb-2 mr-2 btn btn-info" })
+									@Html.ActionLink("مدیریت محصولات", "index","ProjectProducts", new {id = @item.Id}, new {@class = "mb-2 mr-2 btn btn-success" })
+									@Html.ActionLink("مدیریت ضمیمه ها", "index","ProjectAttachments", new {id = @item.Id}, new {@class = "mb-2 mr-2 btn btn-secondary" })
+									</text>).Width(200);
+									})
+		.ToolBar(toolbar =>
+		{
+			toolbar.Custom().Action("Create","Projects").Text("افزودن");
+		}
+		)
+		.DataSource(dataSource => dataSource
+									.Server()
+
+									.Model(model => model.Id(item => item.Id))
+					)
+	)
+
+</div>
+</div>
+</div>

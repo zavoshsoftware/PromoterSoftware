@@ -1,0 +1,84 @@
+﻿@model Models.ProjectProduct
+
+@{
+		ViewBag.Title = "ویرایش " + Server.HtmlDecode(Html.DisplayNameFor(model => model).ToString());
+}
+
+@section styles{
+	@Html.Partial("BackEndLayout/_KendoResourcesPartial")
+}
+
+<div class="col-md-4">
+	<div class="main-card mb-3 card">
+		@ViewBag.description
+	</div>
+</div>
+
+<div class="col-md-8">
+	<div class="main-card mb-3 card">
+		<div class="card-body">
+
+
+			@using (Html.BeginForm("Edit", "ProjectProducts", FormMethod.Post, new { enctype = "multipart/form-data" }))
+			{
+					@Html.AntiForgeryToken()
+
+					@Html.HiddenFor(model => model.Id)
+					@Html.HiddenFor(model => model.ProjectId)
+
+
+
+					<div class="position-relative form-group">
+						@Html.LabelFor(model => model.ProductTitle)
+						<input name="ProductTitle" id="ProductTitle" placeholder="@Html.DisplayNameFor(m=>m.ProductTitle)" type="text" class="form-control" value="@Model.ProductTitle">
+						@Html.ValidationMessageFor(model => model.ProductTitle)
+					</div>
+
+
+						<div class="position-relative form-group">
+							<label>@Html.LabelFor(model => model.ImageUrl)</label>
+							@Html.ValidationMessageFor(model => model.ImageUrl)
+							@Html.HiddenFor(model => model.ImageUrl)
+							@Html.Kendo().Upload().Name("fileUpload").Multiple(false).HtmlAttributes(new { @class = "form-control" })
+
+							@if (!string.IsNullOrEmpty(Model.ImageUrl))
+							{
+									<a href="@Model.ImageUrl" target="_blank" class="btn btn-info">دانلود</a>
+							}
+						</div>
+
+
+						<div class="position-relative form-group">
+							@Html.LabelFor(model => model.ProductDescription)
+							<textarea name="ProductDescription" id="ProductDescription" placeholder="@Html.DisplayNameFor(m=>m.ProductDescription)" class="form-control">@Model.ProductDescription</textarea>
+							@Html.ValidationMessageFor(model => model.ProductDescription)
+						</div>
+
+
+						<div class="position-relative form-check">
+							<label class="form-check-label">
+								@Html.CheckBoxFor(model => model.IsActive)
+								@Html.DisplayNameFor(m => m.IsActive)
+							</label>
+							@Html.ValidationMessageFor(model => model.IsActive)
+						</div>
+
+
+				<div style="display: none;">@Html.EditorFor(model => model.CreationDate)</div>
+						<div class="position-relative form-group">
+							@Html.LabelFor(model => model.Description)
+							<textarea name="Description" id="Description" placeholder="@Html.DisplayNameFor(m=>m.Description)" class="form-control">@Model.Description</textarea>
+							@Html.ValidationMessageFor(model => model.Description)
+						</div>
+
+
+						<div class="button-box">
+							<input type="submit" value="ثبت" class="btn btn-primary" />
+							@Html.ActionLink("بازگشت به فهرست", "Index", new { id = ViewBag.ProjectId })
+						</div>
+
+			}
+		</div>
+	</div>
+</div>
+

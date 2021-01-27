@@ -1,0 +1,153 @@
+﻿@model Models.ProjectDetail
+
+@{
+    ViewBag.Title = "ویرایش " + Server.HtmlDecode(Html.DisplayNameFor(model => model).ToString());
+}
+
+
+<div class="col-md-4">
+    <div class="main-card mb-3 card">
+        @ViewBag.description
+    </div>
+</div>
+                        
+<div class="col-md-8">
+<div class="main-card mb-3 card">
+<div class="card-body">
+
+
+@using (Html.BeginForm("Edit", "ProjectDetails",FormMethod.Post, new { enctype = "multipart/form-data" })) 
+{
+    @Html.AntiForgeryToken()
+    
+        @Html.HiddenFor(model => model.Id)
+
+         <div class="position-relative form-group">
+            @Html.LabelFor(model => model.StoreId)
+                @Html.DropDownList("StoreId",null, String.Empty,new{ @class= "form-control" })
+                @Html.ValidationMessageFor(model => model.StoreId)
+            </div>
+       
+
+         <div class="position-relative form-group">
+            @Html.LabelFor(model => model.UserId)
+                @Html.DropDownList("UserId",null, String.Empty,new{ @class= "form-control" })
+                @Html.ValidationMessageFor(model => model.UserId)
+            </div>
+       
+ 
+       
+	@Html.HiddenFor(model => model.ProjectId)
+
+	<div class="position-relative form-group">
+		@Html.LabelFor(model => model.StartHour)
+		<div class="clearfix">
+			<select id="StartHour"  name="StartHour" class="form-control" style="width: 45%; float: right;">
+				<option value="0" >ساعت</option>
+				@for (int i = 0; i < 24; i++)
+				{
+					if (i == Model.StartHour)
+					{
+						<option value="@i" selected="selected">@i</option>
+					}
+					else
+					{
+								<option value="@i">@i</option>
+					}
+				}
+			</select >
+			<select id="StartMin" name="StartMin" class="form-control" style="width: 45%; float: right;">
+				<option value="0">دقیقه</option>
+				@for (int i = 0; i < 56; i+=5)
+				{
+					if (i == Model.StartMin)
+					{
+						<option value="@i" selected="selected">@i</option>
+					}
+					else
+					{
+						<option value="@i">@i</option>
+					}
+				}
+			</select>
+		</div> 
+	</div>
+	<div class="position-relative form-group">
+		@Html.LabelFor(model => model.FinishHour)
+
+		<div class="clearfix">
+			<select class="form-control" style="width: 45%; float: right;" id="FinishHour" name="FinishHour">
+				<option value="0">ساعت</option>
+				@for (int i = 0; i < 24; i++)
+				{
+					if (i == Model.FinishHour)
+					{
+						<option value="@i" selected="selected">@i</option>
+					}
+					else
+					{
+						<option value="@i">@i</option>
+					}
+				}
+			</select>
+			<select id="FinishMin" name="FinishMin" class="form-control" style="width: 45%; float: right;">
+				<option value="0">دقیقه</option>
+				@for (int i = 0; i < 56; i+=5)
+				{
+					if (i == Model.FinishMin)
+					{
+						<option value="@i" selected="selected">@i</option>
+					}
+					else
+					{
+						<option value="@i">@i</option>
+					}
+				}
+			</select>
+		</div> 
+	</div>
+       
+
+         <div class="position-relative form-group">
+            @Html.LabelFor(model => model.SalaryPerHour)
+                                     <input name="SalaryPerHour" id="SalaryPerHour" placeholder= "@Html.DisplayNameFor(m=>m.SalaryPerHour)" type="text" class="form-control" value="@Model.SalaryPerHour">
+                @Html.ValidationMessageFor(model => model.SalaryPerHour)
+            </div>
+       
+
+         <div class="position-relative form-group">
+            @Html.LabelFor(model => model.TransportationAmount)
+                                     <input name="TransportationAmount" id="TransportationAmount" placeholder= "@Html.DisplayNameFor(m=>m.TransportationAmount)" type="text" class="form-control" value="@Model.TransportationAmount">
+                @Html.ValidationMessageFor(model => model.TransportationAmount)
+            </div>
+       
+
+        	<div class="position-relative form-check">
+			 <label class="form-check-label">
+			     @Html.CheckBoxFor(model => model.IsActive)
+			 @Html.DisplayNameFor(m => m.IsActive)
+			 </label>    
+                                             @Html.ValidationMessageFor(model => model.IsActive)
+            </div>
+       
+
+	<div style="display: none;">@Html.EditorFor(model => model.CreationDate)</div>
+         <div class="position-relative form-group">
+            @Html.LabelFor(model => model.Description)
+                                 <textarea name="Description" id="Description" placeholder= "@Html.DisplayNameFor(m=>m.Description)" class="form-control"></textarea>
+                @Html.ValidationMessageFor(model => model.Description)
+            </div>
+       
+
+   <div class="button-box">
+                <input type="submit" value="ثبت" class="btn btn-primary" />
+	   @Html.ActionLink("بازگشت به فهرست", "Index",new{id=ViewBag.ProjectId})
+           
+        </div>
+        
+  
+}
+        </div>
+        </div>
+        </div>
+

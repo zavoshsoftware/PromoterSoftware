@@ -1,4 +1,4 @@
-﻿ 
+﻿
 
 using System.Data.Entity.ModelConfiguration;
 
@@ -18,28 +18,32 @@ namespace Models
         {
             ProjectDetailPromoters = new List<ProjectDetailPromoter>();
         }
-        [Display(Name="فروشگاه")]
+        [Display(Name = "فروشگاه")]
         public Guid StoreId { get; set; }
         public virtual Store Store { get; set; }
 
-        [Display(Name="ناظر")]
+        [Display(Name = "ناظر")]
         public Guid UserId { get; set; }
         public virtual User User { get; set; }
 
-        [Display(Name="پروژه")]
+        [Display(Name = "پروژه")]
         public Guid ProjectId { get; set; }
         public virtual Project Project { get; set; }
 
-        [Display(Name="ساعت ورود")]
-        public decimal StartHour { get; set; }
+        [Display(Name = "ساعت ورود")]
+        public int StartHour { get; set; }
+        [Display(Name = "دقیقه ورود")]
+        public int StartMin { get; set; }
 
-        [Display(Name="ساعت خروج")]
-        public decimal FinishHour { get; set; }
+        [Display(Name = "ساعت خروج")]
+        public int FinishHour { get; set; }
+        [Display(Name = "دقیقه خروج")]
+        public int FinishMin { get; set; }
 
-        [Display(Name="دستمزد ساعتی")]
+        [Display(Name = "دستمزد ساعتی")]
         public decimal SalaryPerHour { get; set; }
 
-        [Display(Name="هزینه ایاب ذهاب")]
+        [Display(Name = "هزینه ایاب ذهاب")]
         public decimal TransportationAmount { get; set; }
 
         public virtual ICollection<ProjectDetailPromoter> ProjectDetailPromoters { get; set; }
@@ -54,6 +58,26 @@ namespace Models
                 HasRequired(p => p.Project).WithMany(j => j.ProjectDetails).HasForeignKey(p => p.ProjectId);
             }
         }
+
+
+
+        #region NotMapped properties
+
+        [Display(Name = "ساعت ورود")]
+        public string StartHourStr { get { return StartHour + ":" + StartMin; } }
+
+
+        [Display(Name = "ساعت خروج")]
+        public string FinishHourStr { get { return FinishHour + ":" + FinishMin; } }
+
+
+
+        [Display(Name = "دستمزد ساعتی")]
+        public string SalaryPerHourStr { get { return SalaryPerHour.ToString("N0"); } }
+
+        [Display(Name = "هزینه ایاب ذهاب")]
+        public string TransportationAmountStr { get { return TransportationAmount.ToString("N0"); } }
+        #endregion
     }
 }
 

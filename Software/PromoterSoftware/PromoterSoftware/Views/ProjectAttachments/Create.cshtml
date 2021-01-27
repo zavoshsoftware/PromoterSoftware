@@ -1,0 +1,58 @@
+﻿@model Models.ProjectAttachment
+
+@{
+    ViewBag.Title = "افزودن " + Server.HtmlDecode(Html.DisplayNameFor(model => model).ToString());
+}
+
+@section styles{
+	@Html.Partial("BackEndLayout/_KendoResourcesPartial")
+}
+<div class="col-md-4">
+    <div class="main-card mb-3 card">
+        @ViewBag.description
+    </div>
+</div>
+                        
+<div class="col-md-8">
+<div class="main-card mb-3 card">
+<div class="card-body">
+
+@using (Html.BeginForm("Create", "ProjectAttachments",FormMethod.Post, new { enctype = "multipart/form-data" })) 
+{
+    @Html.AntiForgeryToken()
+    
+    
+
+    <div class="position-relative form-group">
+            @Html.LabelFor(model => model.FileUrl)
+	    @Html.Kendo().Upload().Name("fileupload").Multiple(false).HtmlAttributes(new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.FileUrl)
+        </div> 
+			<div class="position-relative form-check">
+			 <label class="form-check-label">
+			     @Html.CheckBoxFor(model => model.IsActive)
+			 @Html.DisplayNameFor(m => m.IsActive)
+			 </label>
+            
+                       </div>
+    <div class="position-relative form-group">
+            @Html.LabelFor(model => model.Description)
+            
+                   <textarea name="Description" id="Description" placeholder= "@Html.DisplayNameFor(m=>m.Description)" class="form-control"></textarea>
+
+                @Html.ValidationMessageFor(model => model.Description)
+        </div>
+
+
+
+       <div class="button-box">
+                <input type="submit" value="ایجاد" class="btn btn-primary" />
+				@Html.ActionLink("بازگشت به فهرست", "Index")
+           
+        </div>
+   
+}
+        </div>
+        </div>
+        </div>
+

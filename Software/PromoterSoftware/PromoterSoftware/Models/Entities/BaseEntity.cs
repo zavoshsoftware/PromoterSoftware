@@ -27,6 +27,7 @@ namespace Models
         public bool IsActive { get; set; }
 
         [Display(Name = "تاریخ ایجاد")]
+        [UIHint("PersianDatePicker")]
         public System.DateTime CreationDate { get; set; }
       
 

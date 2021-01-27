@@ -1,0 +1,116 @@
+﻿@model Models.User
+
+@{
+    ViewBag.Title = "ویرایش " + Server.HtmlDecode(Html.DisplayNameFor(model => model).ToString());
+}
+
+@section styles{
+	@Html.Partial("BackEndLayout/_KendoResourcesPartial")
+}
+
+<div class="col-md-4">
+    <div class="main-card mb-3 card">
+        @ViewBag.description
+    </div>
+</div>
+                        
+<div class="col-md-8">
+<div class="main-card mb-3 card">
+<div class="card-body">
+
+
+@using (Html.BeginForm("Edit", "Users",FormMethod.Post, new { enctype = "multipart/form-data" })) 
+{
+    @Html.AntiForgeryToken()
+    
+        @Html.HiddenFor(model => model.Id)
+
+         <div class="position-relative form-group">
+            @Html.LabelFor(model => model.FullName)
+                                     <input name="FullName" id="FullName" placeholder= "@Html.DisplayNameFor(m=>m.FullName)" type="text" class="form-control" value="@Model.FullName">
+                @Html.ValidationMessageFor(model => model.FullName)
+            </div>
+       
+
+         <div class="position-relative form-group">
+            @Html.LabelFor(model => model.CellNum)
+                                     <input name="CellNum" id="CellNum" placeholder= "@Html.DisplayNameFor(m=>m.CellNum)" type="text" class="form-control" value="@Model.CellNum">
+                @Html.ValidationMessageFor(model => model.CellNum)
+            </div>
+       
+
+         <div class="position-relative form-group">
+            @Html.LabelFor(model => model.Password)
+                                     <input name="Password" id="Password" placeholder= "@Html.DisplayNameFor(m=>m.Password)" type="text" class="form-control" value="@Model.Password">
+                @Html.ValidationMessageFor(model => model.Password)
+            </div>
+       
+
+         <div class="position-relative form-group">
+            @Html.LabelFor(model => model.NationalCode)
+                                     <input name="NationalCode" id="NationalCode" placeholder= "@Html.DisplayNameFor(m=>m.NationalCode)" type="text" class="form-control" value="@Model.NationalCode">
+                @Html.ValidationMessageFor(model => model.NationalCode)
+            </div>
+	<div class="position-relative form-group">
+		<label>@Html.LabelFor(model => model.AvatarImageUrl)</label>
+		@Html.Kendo().Upload().Name("fileUploadAvatar").Multiple(false).HtmlAttributes(new { @class = "form-control" })
+	</div>
+
+	<div class="position-relative form-group">
+		<label>@Html.LabelFor(model => model.NationalCardFileUrl)</label>
+		@Html.ValidationMessageFor(model => model.NationalCardFileUrl)
+		@Html.Kendo().Upload().Name("fileUpload").Multiple(false).HtmlAttributes(new { @class = "form-control" })
+		
+	@if (!string.IsNullOrEmpty(Model.NationalCardFileUrl))
+	{
+		<a href="@Model.NationalCardFileUrl" target="_blank" class="btn btn-info">دانلود</a>
+	}
+	</div>
+
+	@Html.HiddenFor(model => model.Code)
+	@Html.HiddenFor(model => model.AvatarImageUrl)
+	@Html.HiddenFor(model => model.NationalCardFileUrl)
+
+	<div class="position-relative form-group">
+            @Html.LabelFor(model => model.RoleId)
+                @Html.DropDownList("RoleId",null, String.Empty,new{ @class= "form-control" })
+                @Html.ValidationMessageFor(model => model.RoleId)
+            </div>
+       
+
+         <div class="position-relative form-group">
+            @Html.LabelFor(model => model.CityId)
+                @Html.DropDownList("CityId",null, String.Empty,new{ @class= "form-control" })
+                @Html.ValidationMessageFor(model => model.CityId)
+            </div>
+       
+
+        	<div class="position-relative form-check">
+			 <label class="form-check-label">
+			     @Html.CheckBoxFor(model => model.IsActive)
+			 @Html.DisplayNameFor(m => m.IsActive)
+			 </label>    
+                                             @Html.ValidationMessageFor(model => model.IsActive)
+            </div>
+
+
+						<div style="display: none;">@Html.EditorFor(model => model.CreationDate)</div>
+         <div class="position-relative form-group">
+            @Html.LabelFor(model => model.Description)
+                                 <textarea name="Description" id="Description" placeholder= "@Html.DisplayNameFor(m=>m.Description)" class="form-control"></textarea>
+                @Html.ValidationMessageFor(model => model.Description)
+            </div>
+       
+
+   <div class="button-box">
+                <input type="submit" value="ثبت" class="btn btn-primary" />
+				@Html.ActionLink("بازگشت به فهرست", "Index")
+           
+        </div>
+        
+  
+}
+        </div>
+        </div>
+        </div>
+

@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Models.ProjectProduct>
+
+@section styles{
+@Html.Partial("BackEndLayout/_KendoResourcesPartial")
+}
+<div class="col-md-12">
+    <div class="main-card mb-3 card">
+        <div class="card-body">
+
+        @(Html.Kendo().Grid(Model)
+              .Name("Grid")
+              .Columns(columns =>
+                  {
+        columns.Bound(model => model.ProductTitle);
+				columns.Bound(model => model.ImageUrl).Template(@<text><img src="@item.ImageUrl" height="100px" /></text>);
+        columns.Bound(model => model.IsActive);
+        columns.Bound(model => model.CreationDate);
+					columns.Bound(item => @item.Id).Title("دستورات").Filterable(false).Groupable(false)
+							.Template(@<text>
+									@Html.ActionLink("ویرایش", "Edit", new { id = @item.Id }, new { @class = "mb-2 mr-2 btn btn-primary" })
+					@Html.ActionLink("حذف", "Delete", new { id = @item.Id }, new { @class = "mb-2 mr-2 btn btn-warning" })
+									</text>).Width(200);
+							})
+		.ToolBar(toolbar =>
+		{
+			toolbar.Custom().Action("index", "Projects").Text("بازگشت به لیست پروژه ها");
+			toolbar.Custom().Action("Create","ProjectProducts").Text("افزودن");
+		}
+		)
+		.DataSource(dataSource => dataSource
+									.Server()
+
+									.Model(model => model.Id(item => item.Id))
+					)
+	)
+
+</div>
+</div>
+</div>
