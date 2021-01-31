@@ -9,9 +9,9 @@ namespace PromoterSoftware.Controllers
     public class HomeController : Controller
     {
         // GET: Home
-        public ActionResult Dashboard()
+        public ActionResult index()
         {
-            return View();
+            return RedirectToAction("login", "account");
         }
     }
 }

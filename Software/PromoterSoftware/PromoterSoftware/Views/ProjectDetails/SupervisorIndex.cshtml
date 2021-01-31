@@ -14,7 +14,6 @@
                   {
         columns.Bound(model => model.Store.City.Title);
         columns.Bound(model => model.Store.Title);
-        columns.Bound(model => model.User.FullName).Title("ناظر");
         columns.Bound(model => model.StartHourStr);
         columns.Bound(model => model.FinishHourStr);
         columns.Bound(model => model.SalaryPerHourStr);
@@ -22,13 +21,12 @@
         columns.Bound(model => model.IsActive);
 					columns.Bound(item => @item.Id).Title("دستورات").Filterable(false).Groupable(false)
 							.Template(@<text>
-									@Html.ActionLink("ویرایش", "Edit", new { id = @item.Id }, new { @class = "mb-2 mr-2 btn btn-primary" })
-					@Html.ActionLink("حذف", "Delete", new { id = @item.Id }, new { @class = "mb-2 mr-2 btn btn-warning" })
+									@Html.ActionLink("پروموترها", "Index","ProjectDetailPromoters", new { id = @item.Id }, new { @class = "mb-2 mr-2 btn btn-primary" })
 									</text>).Width(200);
 							})
 		.ToolBar(toolbar =>
 		{
-			toolbar.Custom().Action("index", "Projects").Text("بازگشت به لیست پروژه ها");
+			toolbar.Custom().Action("supervisorindex", "Projects").Text("بازگشت به لیست پروژه ها");
 			toolbar.Custom().Action("Create","ProjectDetails").Text("افزودن");
 		}
 		)

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Helpers;
 using Models;
 using ViewModels;
 
@@ -160,5 +161,24 @@ namespace PromoterSoftware.Controllers
             }
             return Json(cityItems, JsonRequestBehavior.AllowGet);
         }
+
+
+        #region SupervisorList
+
+        public ActionResult SupervisorIndex(Guid id)
+        {
+            User user = GetUserInfo.GetUser();
+
+            var projectDetails = db.ProjectDetails.Include(p => p.Project)
+                .Where(p => p.ProjectId == id && p.UserId == user.Id && p.IsDeleted == false)
+                .Include(p => p.Store).OrderByDescending(p => p.CreationDate);
+
+            var project = db.Projects.Where(c => c.Id == id).Select(c => c.Title);
+
+            ViewBag.Title = "جزییات پروژه " + project.FirstOrDefault();
+            return View(projectDetails.ToList());
+        }
+
+        #endregion
     }
 }

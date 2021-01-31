@@ -22,7 +22,7 @@ namespace PromoterSoftware.Infrastructure
             System.Threading.Thread.CurrentThread.CurrentCulture = oCultureInfo;
             System.Threading.Thread.CurrentThread.CurrentUICulture = oCultureInfo;
 
-            User user = GetUserInfo.GetUserFullName();
+            User user = GetUserInfo.GetUser();
             if (user != null)
             {
                 ViewBag.Name = user.FullName;

@@ -1,0 +1,151 @@
+﻿@model Models.DailyPromoterPlan
+
+@{
+		ViewBag.Title = "ویرایش " + Server.HtmlDecode(Html.DisplayNameFor(model => model).ToString());
+}
+
+
+<div class="col-md-4">
+	<div class="main-card mb-3 card">
+		@ViewBag.description
+	</div>
+</div>
+
+<div class="col-md-8">
+	<div class="main-card mb-3 card">
+		<div class="card-body">
+
+
+			@using (Html.BeginForm("Edit", "DailyPromoterPlans", FormMethod.Post, new { enctype = "multipart/form-data" }))
+			{
+					@Html.AntiForgeryToken()
+
+					@Html.HiddenFor(model => model.Id)
+					@Html.HiddenFor(model => model.IsActive)
+					@Html.HiddenFor(model => model.ProjectDetailPromoterId)
+
+					 
+						<div class="position-relative form-group">
+							@Html.LabelFor(model => model.ShiftDate)
+							@Html.EditorFor(m => m.ShiftDate)
+
+							@Html.ValidationMessageFor(model => model.ShiftDate)
+						</div>
+
+						<div class="position-relative form-group">
+							@Html.LabelFor(model => model.StartHour)
+							<div class="clearfix">
+								<select id="StartHour" name="StartHour" class="form-control" style="width: 45%; float: right;">
+									<option value="0">ساعت</option>
+									@for (int i = 0; i < 24; i++)
+									{
+										if (i == Model.StartHour)
+										{
+													<option value="@i" selected="selected">@i</option>
+}
+										else
+										{
+													<option value="@i">@i</option>
+}
+									}
+								</select>
+								<select id="StartMin" name="StartMin" class="form-control" style="width: 45%; float: right;">
+									<option value="0">دقیقه</option>
+									@for (int i = 0; i < 56; i += 5)
+									{
+										if (i == Model.StartMin)
+										{
+													<option value="@i" selected="selected">@i</option>
+}
+										else
+										{
+													<option value="@i">@i</option>
+}
+									}
+								</select>
+							</div>
+						</div>
+						<div class="position-relative form-group">
+							@Html.LabelFor(model => model.FinishHour)
+
+							<div class="clearfix">
+								<select class="form-control" style="width: 45%; float: right;" id="FinishHour" name="FinishHour">
+									<option value="0">ساعت</option>
+									@for (int i = 0; i < 24; i++)
+									{
+										if (i == Model.FinishHour)
+										{
+													<option value="@i" selected="selected">@i</option>
+}
+										else
+										{
+													<option value="@i">@i</option>
+}
+									}
+								</select>
+								<select id="FinishMin" name="FinishMin" class="form-control" style="width: 45%; float: right;">
+									<option value="0">دقیقه</option>
+									@for (int i = 0; i < 56; i += 5)
+									{
+										if (i == Model.FinishMin)
+										{
+													<option value="@i" selected="selected">@i</option>
+}
+										else
+										{
+													<option value="@i">@i</option>
+}
+									}
+								</select>
+							</div>
+						</div>
+
+
+						<div class="position-relative form-group">
+							@Html.LabelFor(model => model.StartLat)
+							<input name="StartLat" id="StartLat" placeholder="@Html.DisplayNameFor(m=>m.StartLat)" type="text" class="form-control" value="@Model.StartLat">
+							@Html.ValidationMessageFor(model => model.StartLat)
+						</div>
+
+
+						<div class="position-relative form-group">
+							@Html.LabelFor(model => model.StartLong)
+							<input name="StartLong" id="StartLong" placeholder="@Html.DisplayNameFor(m=>m.StartLong)" type="text" class="form-control" value="@Model.StartLong">
+							@Html.ValidationMessageFor(model => model.StartLong)
+						</div>
+
+
+						<div class="position-relative form-group">
+							@Html.LabelFor(model => model.FinishLat)
+							<input name="FinishLat" id="FinishLat" placeholder="@Html.DisplayNameFor(m=>m.FinishLat)" type="text" class="form-control" value="@Model.FinishLat">
+							@Html.ValidationMessageFor(model => model.FinishLat)
+						</div>
+
+
+						<div class="position-relative form-group">
+							@Html.LabelFor(model => model.FinishLong)
+							<input name="FinishLong" id="FinishLong" placeholder="@Html.DisplayNameFor(m=>m.FinishLong)" type="text" class="form-control" value="@Model.FinishLong">
+							@Html.ValidationMessageFor(model => model.FinishLong)
+						</div>
+
+
+
+						<div style="display: none;">@Html.EditorFor(model => model.CreationDate)</div>
+						<div class="position-relative form-group">
+							@Html.LabelFor(model => model.Description)
+							<textarea name="Description" id="Description" placeholder="@Html.DisplayNameFor(m=>m.Description)" class="form-control"></textarea>
+							@Html.ValidationMessageFor(model => model.Description)
+						</div>
+
+
+						<div class="button-box">
+							<input type="submit" value="ثبت" class="btn btn-primary" />
+							@Html.ActionLink("بازگشت به فهرست", "Index", new { id = ViewBag.ProjectDetailPromoterId })
+
+						</div>
+
+
+			}
+		</div>
+	</div>
+</div>

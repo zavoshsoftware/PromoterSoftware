@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Models.ProjectAttachment>
+
+@section styles{
+@Html.Partial("BackEndLayout/_KendoResourcesPartial")
+}
+<div class="col-md-12">
+    <div class="main-card mb-3 card">
+        <div class="card-body">
+
+        @(Html.Kendo().Grid(Model)
+              .Name("Grid")
+              .Columns(columns =>
+                  {
+                        columns.Bound(model => model.Project.Title);
+	                  columns.Bound(item => @item.Id).Title("ضمیمه").Filterable(false).Groupable(false)
+		                  .Template(@<text>
+							          <a  href="@item.FileUrl" target="_blank" class="mb-2 mr-2 btn-transition btn btn-outline-success">مشاهده</a>
+
+						           </text>).Width(200);  	
+        columns.Bound(model => model.IsActive);
+        columns.Bound(model => model.CreationDateStr);
+	 
+		})
+		.ToolBar(toolbar =>
+					{				
+						toolbar.Custom().Action("SupervisorIndex", "Projects").Text("بازگشت به لیست پروژه ها");
+
+					}
+		)         
+		.DataSource(dataSource => dataSource
+									.Server()
+							
+									.Model(model => model.Id(item => item.Id))
+					)              
+	)
+
+</div>
+</div>
+</div>

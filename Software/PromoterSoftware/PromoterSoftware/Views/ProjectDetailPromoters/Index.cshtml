@@ -1,0 +1,114 @@
+﻿@model ViewModels.ProjectDetailPromoterViewModel
+@section styles{
+@Html.Partial("BackEndLayout/_KendoResourcesPartial")
+
+	<style>
+		.card-add {
+			margin-bottom: 15px;
+			background-color: #f8f9fa;
+		}
+		.card-add-heading {
+			border-bottom: 1px solid #3f6ad8;
+			padding: 15px;
+			font-size: 1.3rem;
+			color: #3f6ad8
+		}.card-add-body  {
+			 padding: 15px;
+
+		}.card-add-body .row {
+			direction: rtl;
+		}
+
+		 .dirright {
+			 direction: rtl;
+		 }
+
+
+	</style>
+}
+<div class="col-md-12">
+    <div class="main-card mb-3 card">
+        <div class="card-body">
+	        <div class="row dirright">
+		        <div class="col-md-8">
+			        <div class="card-add">
+				        <div class="card-add-heading">افزودن پروموتر</div>
+				        <div class="card-add-body">
+					        @if (TempData["invalidPromoter"] != null)
+					        {
+						        <p class="alert alert-danger" id="wrongEmail">@TempData["invalidPromoter"]</p>
+					        }
+					        @using (Html.BeginForm())
+					        {
+						        @Html.AntiForgeryToken()
+						        @Html.HiddenFor(m => m.ProjectDetailId)
+						        <div class="row">
+							        <div class="col-md-4">پروموتر</div>
+							        <div class="col-md-8">
+								        @Html.DropDownList("UserId", null, String.Empty, new {@class = "form-control", @required = "required"})
+							        </div>
+						        </div>
+						        <div class="row">
+							        <div class="col-md-4"></div>
+							        <div class="col-md-8 pt-2">
+								        <input type="submit" value="ثبت" class="btn btn-primary"/>
+							        </div>
+						        </div>
+					        }
+
+				        </div>
+			        </div>
+		        </div>
+		        <div class="col-md-4">
+			        <table class="table table-bordered">
+				        <tr>
+					        <td>تاریخ شروع پروژه</td>
+					        <td>
+						        @Model.StartDate
+					        </td>
+				        </tr>
+				        <tr>
+					        <td>تاریخ پایان پروژه</td>
+					        <td>@Model.EndDate</td>
+				        </tr>
+				        <tr>
+					        <td>ساعت کاری</td>
+					        <td>@Model.StartHour لغایت @Model.FinishHour</td>
+				        </tr>
+				        <tr>
+					        <td>دستمزد ساعتی</td>
+					        <td>@Model.SalaryPerHour</td>
+				        </tr>
+				        <tr>
+					        <td>هزینه ایاب ذهاب</td>
+					        <td>@Model.TransportationAmount</td>
+				        </tr>
+			        </table>
+		        </div>
+	        </div>
+	     
+
+	        @(Html.Kendo().Grid(Model.ProjectDetailPromoters)
+              .Name("Grid")
+              .Columns(columns =>
+                  {
+        columns.Bound(model => model.User.FullName).Title("پروموتر");
+        columns.Bound(model => model.IsFullTime);
+        columns.Bound(model => model.IsActive);
+					columns.Bound(item => @item.Id).Title("دستورات").Filterable(false).Groupable(false)
+							.Template(@<text>
+									@Html.ActionLink("مشاهده برنامه روزانه", "index","DailyPromoterPlans", new {id = @item.Id}, new {@class = "k-button"})
+									@Html.ActionLink("حذف", "Delete", new {id = @item.Id}, new {@class = "k-button"})
+									</text>).Width(200);  
+		})
+	         
+		.DataSource(dataSource => dataSource
+									.Server()
+							
+									.Model(model => model.Id(item => item.Id))
+					)              
+	)
+
+</div>
+</div>
+</div>

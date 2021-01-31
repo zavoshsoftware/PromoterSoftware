@@ -1,0 +1,39 @@
+﻿@model Models.DailyPromoterPlan
+
+ 
+@section styles{
+	@Html.Partial("BackEndLayout/_KendoResourcesPartial")
+}
+<div class="col-md-4">
+	<div class="main-card mb-3 card">
+		@ViewBag.description
+	</div>
+</div>
+
+<div class="col-md-8">
+	<div class="main-card mb-3 card">
+		<div class="card-body">
+
+			@using (Html.BeginForm("Create", "DailyPromoterPlans", FormMethod.Post, new { enctype = "multipart/form-data" }))
+			{
+					@Html.AntiForgeryToken()
+
+
+					<div class="position-relative form-group">
+						@Html.LabelFor(model => model.ShiftDate)
+						@Html.EditorFor(m => m.ShiftDate)
+
+						@Html.ValidationMessageFor(model => model.ShiftDate)
+					</div>
+
+					<div class="button-box">
+						<input type="submit" value="ایجاد" class="btn btn-primary" />
+						@Html.ActionLink("بازگشت به فهرست", "Index", new { id = ViewBag.ProjectDetailPromoterId })
+
+					</div>
+
+			}
+		</div>
+	</div>
+</div>
+

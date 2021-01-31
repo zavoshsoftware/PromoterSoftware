@@ -21,7 +21,17 @@ namespace PromoterSoftware.Controllers
 
             var project = db.Projects.Where(c => c.Id == id).Select(c => c.Title);
 
-            ViewBag.Title = "جزییات پروژه " + project.FirstOrDefault();
+            ViewBag.Title = "محصولات پروژه " + project.FirstOrDefault();
+            return View(projectProducts.ToList());
+        }
+
+        public ActionResult List(Guid id)
+        {
+            var projectProducts = db.ProjectProducts.Include(p => p.Project).Where(p => p.ProjectId == id && p.IsDeleted == false).OrderByDescending(p => p.CreationDate);
+
+            var project = db.Projects.Where(c => c.Id == id).Select(c => c.Title);
+
+            ViewBag.Title = "محصولات پروژه " + project.FirstOrDefault();
             return View(projectProducts.ToList());
         }
 

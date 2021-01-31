@@ -8,7 +8,7 @@ namespace Helpers
 {
     public static class GetUserInfo
     {
-        public static User GetUserFullName()
+        public static User GetUser()
         {
             DatabaseContext db = new DatabaseContext();
 

@@ -71,16 +71,18 @@ namespace PromoterSoftware.Controllers
             
                 if (role == "Administrator")
                     return RedirectToAction("index", "Users");
-                //if(role== "Administrator")
-                //return RedirectToAction("Index", "users");
-                //else if(role=="company")
-                //    return RedirectToAction("Details", "WbsRequirments");
 
-                //if (role == "supervisor")
-                //    return RedirectToAction("index", "Anomalies");
-                //return RedirectToAction("Index", "users");
+            if (role == "supervisor")
+                return RedirectToAction("SupervisorIndex", "Projects");
+            //if(role== "Administrator")
+            //return RedirectToAction("Index", "users");
+            //else if(role=="company")
+            //    return RedirectToAction("Details", "WbsRequirments");
 
-                return RedirectToAction("login", "Account");
+
+            //return RedirectToAction("Index", "users");
+
+            return RedirectToAction("login", "Account");
              
         }
         public ActionResult LogOff()

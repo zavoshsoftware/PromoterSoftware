@@ -799,8 +799,10 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Controllers\DailyPromoterPlansController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProjectAttachmentsController.cs" />
+    <Compile Include="Controllers\ProjectDetailPromotersController.cs" />
     <Compile Include="Controllers\ProjectDetailsController.cs" />
     <Compile Include="Controllers\ProjectProductsController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
@@ -829,6 +831,10 @@
     <Compile Include="Migrations\202101271609020_V04.designer.cs">
       <DependentUpon>202101271609020_V04.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202101310925566_V05.cs" />
+    <Compile Include="Migrations\202101310925566_V05.designer.cs">
+      <DependentUpon>202101310925566_V05.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DatabaseContext.cs" />
     <Compile Include="Models\DatabaseContextInitializer.cs" />
@@ -853,6 +859,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\CityItemViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\ProjectDetailPromoterViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -1049,6 +1056,19 @@
     <Content Include="Views\ProjectProducts\Edit.cshtml" />
     <Content Include="Views\ProjectProducts\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Projects\SupervisorIndex.cshtml" />
+    <Content Include="Views\ProjectDetails\SupervisorIndex.cshtml" />
+    <Content Include="Views\ProjectDetailPromoters\Create.cshtml" />
+    <Content Include="Views\ProjectDetailPromoters\Delete.cshtml" />
+    <Content Include="Views\ProjectDetailPromoters\Details.cshtml" />
+    <Content Include="Views\ProjectDetailPromoters\Edit.cshtml" />
+    <Content Include="Views\ProjectDetailPromoters\Index.cshtml" />
+    <Content Include="Views\DailyPromoterPlans\Create.cshtml" />
+    <Content Include="Views\DailyPromoterPlans\Delete.cshtml" />
+    <Content Include="Views\DailyPromoterPlans\Edit.cshtml" />
+    <Content Include="Views\DailyPromoterPlans\Index.cshtml" />
+    <Content Include="Views\ProjectProducts\List.cshtml" />
+    <Content Include="Views\ProjectAttachments\List.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1074,6 +1094,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101271609020_V04.resx">
       <DependentUpon>202101271609020_V04.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101310925566_V05.resx">
+      <DependentUpon>202101310925566_V05.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

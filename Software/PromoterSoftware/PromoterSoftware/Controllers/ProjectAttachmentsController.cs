@@ -25,6 +25,16 @@ namespace PromoterSoftware.Controllers
         }
 
 
+        public ActionResult List(Guid id)
+        {
+            Project project = db.Projects.Find(id);
+
+            ViewBag.Title = "ضمایم پروژه " + project.Title;
+            var projectAttachments = db.ProjectAttachments.Include(p => p.Project).Where(p => p.ProjectId == id && p.IsDeleted == false).OrderByDescending(p => p.CreationDate);
+            return View(projectAttachments.ToList());
+        }
+
+
         public ActionResult Create(Guid id)
         {
             ViewBag.ProjectId = id;

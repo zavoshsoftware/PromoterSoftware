@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Helpers;
 using Models;
 
 namespace PromoterSoftware.Controllers
@@ -81,8 +82,7 @@ namespace PromoterSoftware.Controllers
             return View(project);
         }
 
-        // GET: Projects/Edit/5
-        public ActionResult Edit(Guid? id)
+       public ActionResult Edit(Guid? id)
         {
             if (id == null)
             {
@@ -96,13 +96,10 @@ namespace PromoterSoftware.Controllers
             ViewBag.CustomerId = new SelectList(db.Customers, "Id", "Title", project.CustomerId);
             return View(project);
         }
-
-        // POST: Projects/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,StartDate,EndDate,CustomerId,Body,IsActive,CreationDate,LastModifiedDate,IsDeleted,DeletionDate,Description")] Project project)
+        public ActionResult Edit(Project project)
         {
             if (ModelState.IsValid)
             {
@@ -115,7 +112,6 @@ namespace PromoterSoftware.Controllers
             return View(project);
         }
 
-        // GET: Projects/Delete/5
         public ActionResult Delete(Guid? id)
         {
             if (id == null)
@@ -130,7 +126,6 @@ namespace PromoterSoftware.Controllers
             return View(project);
         }
 
-        // POST: Projects/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
@@ -151,5 +146,38 @@ namespace PromoterSoftware.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+        #region Supervisor
+
+        public ActionResult SupervisorIndex()
+        {
+            User user = GetUserInfo.GetUser();
+
+            List<Project> projects=new List<Project>();
+
+            if (user != null)
+            {
+                var projectDetails = db.ProjectDetails.Where(c => c.UserId == user.Id).Select(c => new
+                {
+                    c.ProjectId,
+                    c.UserId
+                });
+
+                foreach (var projectDetail in projectDetails)
+                {
+                    if (projects.All(c => c.Id != projectDetail.ProjectId))
+                    {
+                        projects.Add(db.Projects.Find(projectDetail.ProjectId));
+                    }
+                }
+
+            }
+
+            return View(projects);
+        }
+
+
+        #endregion
     }
 }

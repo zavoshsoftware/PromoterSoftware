@@ -25,12 +25,22 @@ namespace Models
         public virtual ProjectDetailPromoter ProjectDetailPromoter { get; set; }
          
         [Display(Name = "روز کاری")]
+        [UIHint("PersianDatePicker")]
         public DateTime ShiftDate { get; set; }
 
+
         [Display(Name = "ساعت شروع کار")]
-        public decimal? StartHour { get; set; }
+        public int? StartHour { get; set; }
+        [Display(Name = "دقیقه شروع کار")]
+        public int? StartMin { get; set; }
+
         [Display(Name = "ساعت پایان کار")]
-        public decimal? FinishHour { get; set; }
+        public int? FinishHour { get; set; }
+        [Display(Name = "دقیقه پایان کار")]
+        public int? FinishMin { get; set; }
+
+
+ 
 
         public decimal? StartLat { get; set; }
         public decimal? StartLong { get; set; }
@@ -47,6 +57,32 @@ namespace Models
                 HasRequired(p => p.ProjectDetailPromoter).WithMany(j => j.DailyPromoterPlans).HasForeignKey(p => p.ProjectDetailPromoterId);
             }
         }
+
+
+        [Display(Name = "تاریخ ایجاد")]
+        [NotMapped]
+        public string ShiftDateStr
+        {
+            get
+            {
+                System.Globalization.PersianCalendar pc = new System.Globalization.PersianCalendar();
+                string year = pc.GetYear(ShiftDate).ToString().PadLeft(4, '0');
+                string month = pc.GetMonth(ShiftDate).ToString().PadLeft(2, '0');
+                string day = pc.GetDayOfMonth(ShiftDate).ToString().PadLeft(2, '0');
+                return String.Format("{0}/{1}/{2}", year, month, day);
+            }
+        }
+
+        [NotMapped]
+        [Display(Name = "ساعت شروع کار")]
+        public string StartHourStr { get { return StartHour + ":" + StartMin; } }
+
+
+        [Display(Name = "ساعت پایان کار")]
+        [NotMapped]
+        public string FinishHourStr { get { return FinishHour + ":" + FinishMin; } }
+
+
     }
 }
 

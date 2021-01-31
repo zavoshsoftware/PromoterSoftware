@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Models.DailyPromoterPlan>
+
+ 
+@section styles{
+@Html.Partial("BackEndLayout/_KendoResourcesPartial")
+}
+<div class="col-md-12">
+    <div class="main-card mb-3 card">
+        <div class="card-body">
+
+        @(Html.Kendo().Grid(Model)
+              .Name("Grid")
+              .Columns(columns =>
+                  {
+        columns.Bound(model => model.ShiftDateStr);
+        columns.Bound(model => model.StartHour);
+        columns.Bound(model => model.FinishHour);
+					columns.Bound(item => @item.Id).Title("دستورات").Filterable(false).Groupable(false)
+							.Template(@<text>
+									@Html.ActionLink("ویرایش", "Edit", new {id = @item.Id}, new {@class = "k-button"})
+									@Html.ActionLink("حذف", "Delete", new {id = @item.Id}, new {@class = "k-button"})
+									</text>).Width(200);  
+		})
+		.ToolBar(toolbar =>
+					{				
+						toolbar.Custom().Action("Create","DailyPromoterPlans").Text("افزودن");                          
+					}
+		)         
+		.DataSource(dataSource => dataSource
+									.Server()
+							
+									.Model(model => model.Id(item => item.Id))
+					)              
+	)
+
+</div>
+</div>
+</div>

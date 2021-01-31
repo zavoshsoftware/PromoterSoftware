@@ -63,19 +63,23 @@ namespace Models
 
         #region NotMapped properties
 
+        [NotMapped]
         [Display(Name = "ساعت ورود")]
         public string StartHourStr { get { return StartHour + ":" + StartMin; } }
 
 
         [Display(Name = "ساعت خروج")]
+        [NotMapped]
         public string FinishHourStr { get { return FinishHour + ":" + FinishMin; } }
 
 
 
         [Display(Name = "دستمزد ساعتی")]
+        [NotMapped]
         public string SalaryPerHourStr { get { return SalaryPerHour.ToString("N0"); } }
 
         [Display(Name = "هزینه ایاب ذهاب")]
+        [NotMapped]
         public string TransportationAmountStr { get { return TransportationAmount.ToString("N0"); } }
         #endregion
     }
