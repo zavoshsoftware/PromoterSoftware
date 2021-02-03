@@ -74,6 +74,9 @@ namespace PromoterSoftware.Controllers
 
             if (role == "supervisor")
                 return RedirectToAction("SupervisorIndex", "Projects");
+
+            if (role == "promoter")
+                return RedirectToAction("PromoterDailyPlanAction", "DailyPromoterPlans");
             //if(role== "Administrator")
             //return RedirectToAction("Index", "users");
             //else if(role=="company")

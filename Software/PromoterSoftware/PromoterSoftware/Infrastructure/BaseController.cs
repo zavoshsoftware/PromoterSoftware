@@ -28,6 +28,7 @@ namespace PromoterSoftware.Infrastructure
                 ViewBag.Name = user.FullName;
                 ViewBag.avatar = user.AvatarImageUrl;
                 ViewBag.Role = user.Role.Title;
+                ViewBag.RoleName = user.Role.Name;
 
                 if (string.IsNullOrEmpty(user.AvatarImageUrl))
                     ViewBag.avatar = "/assets/images/avatars/avatar_default.jpg";

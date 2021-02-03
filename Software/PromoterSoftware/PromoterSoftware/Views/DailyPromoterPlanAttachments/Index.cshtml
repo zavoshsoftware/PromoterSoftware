@@ -1,6 +1,9 @@
-﻿@model IEnumerable<Models.DailyPromoterPlan>
+﻿@model IEnumerable<Models.DailyPromoterPlanAttachment>
 
- 
+@{
+ViewBag.Title = "فهرست " + Server.HtmlDecode(Html.DisplyModelPluralName(model => model).ToString());
+    
+}
 @section styles{
 @Html.Partial("BackEndLayout/_KendoResourcesPartial")
 }
@@ -12,21 +15,21 @@
               .Name("Grid")
               .Columns(columns =>
                   {
-        columns.Bound(model => model.ShiftDateStr);
-        columns.Bound(model => model.StartHour);
-        columns.Bound(model => model.FinishHour);
+                        columns.Bound(model => model.DailyPromoterPlan.Description);
+        columns.Bound(model => model.FileUrl);
+        columns.Bound(model => model.IsActive);
+        columns.Bound(model => model.CreationDate);
+        columns.Bound(model => model.LastModifiedDate);
+        columns.Bound(model => model.Description);
 					columns.Bound(item => @item.Id).Title("دستورات").Filterable(false).Groupable(false)
 							.Template(@<text>
 									@Html.ActionLink("ویرایش", "Edit", new {id = @item.Id}, new {@class = "k-button"})
 									@Html.ActionLink("حذف", "Delete", new {id = @item.Id}, new {@class = "k-button"})
-			 
-					@Html.ActionLink("مشاهده نقطه اغاز کار", "ShowMap", new { mapLat = @item.StartLat, mapLong =@item.StartLong}, new {@class = "k-button",target="_blank"})
-									@Html.ActionLink("مشاهده نقطه پایان کار", "ShowMap", new { mapLat = @item.FinishLat, mapLong =@item.FinishLong }, new {@class = "k-button", target = "_blank" })
 									</text>).Width(200);  
 		})
 		.ToolBar(toolbar =>
 					{				
-						toolbar.Custom().Action("Create","DailyPromoterPlans").Text("افزودن");                          
+						toolbar.Custom().Action("Create","DailyPromoterPlanAttachments").Text("افزودن");                          
 					}
 		)         
 		.DataSource(dataSource => dataSource

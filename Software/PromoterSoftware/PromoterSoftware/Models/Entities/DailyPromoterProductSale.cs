@@ -13,13 +13,16 @@ namespace Models
     public class DailyPromoterProductSale : BaseEntity
     { 
         [Display(Name="تعداد فروش")]
-        public decimal Count { get; set; }
+        public int Count { get; set; }
 
         public Guid ProjectProductId { get; set; }
         public virtual ProjectProduct ProjectProduct { get; set; }
 
         public Guid DailyPromoterPlanId { get; set; }
         public virtual DailyPromoterPlan DailyPromoterPlan { get; set; }
+
+        [Display(Name="توضیحات پروموتر")]
+        public string PromoterDescription { get; set; }
     }
 }
 

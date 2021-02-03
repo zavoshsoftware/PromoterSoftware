@@ -1,0 +1,293 @@
+﻿@model ViewModels.PromoterDailyPlanActionViewModel
+		@{
+			ViewBag.Title = "برنامه امروز پروموتر";
+		}
+@section styles{
+	@Html.Partial("BackEndLayout/_KendoResourcesPartial")
+	<link href="~/assets/responsive-table.css" rel="stylesheet" />
+
+	<style>
+		.td-heading {
+			background-color: #ddd;
+		}
+
+		.dirright {
+			direction: rtl;
+		}
+
+		.table-product {
+			margin-bottom: 0 !important;
+		}
+
+			.table-product td img {
+				max-height: 100px;
+			}
+
+			.table-product td .product-img {
+				float: right;
+				width: 100px;
+				text-align: center
+			}
+
+			.table-product td .product-info {
+				float: right;
+				margin-right: 15px;
+			}
+
+				.table-product td .product-info h3 {
+					font-size: 1.4rem;
+				}
+
+			.table-product td dfn {
+				display: block;
+			}
+
+		.card-product {
+			border: 1px solid #0000cd;
+			margin: 10px 0;
+		}
+
+			.card-product .card-product-body {
+				padding: 20px;
+			}
+
+			.card-product .card-product-header {
+				background-color: #2651be;
+				padding: 8px 0;
+			}
+
+				.card-product .card-product-header h2 {
+					text-align: center;
+					font-size: 1.5rem !important;
+					color: #fff;
+				}
+
+		.btn-start {
+			font-size: 1.1rem !important;
+			padding: .375rem 7.75rem !important;
+		}
+
+
+		@@media screen and (max-width: 768px) {
+			.btn-start {
+				padding: .375rem .75rem !important;
+			}
+		}
+
+		.promoter-attch {
+			margin-bottom: 20px;
+		}
+
+			.promoter-attch .k-upload {
+				width: 70% !important;
+				float: right;
+			}
+
+			.promoter-attch button {
+				float: right;
+				margin-right: 15px;
+				margin-top: 10px;
+			}
+
+		.alert-success-custom {
+			color: chartreuse;
+			display: none;
+		}
+		.alert-danger-custom {
+			color: red;
+			display: none;
+		}
+	</style>
+}
+
+
+@section scripts{
+	<script src="~/assets/scripts/responsive-table.js"></script>
+	<script>
+		$(document).ready(function() {
+			changeTableResponsive();
+		});
+	</script>
+<script src="~/assets/scripts/functions-promoter.js"></script>
+	 
+}
+<div class="col-md-12">
+	<div class="main-card mb-3 card">
+		<div class="card-body">
+			<div class="row dirright">
+				<div class="col-md-12">
+					<table class="table table-bordered">
+
+						<tr>
+							<td class="td-heading">تاریخ</td>
+							<td>@Model.ShiftDate</td>
+							<td class="td-heading">پروژه</td>
+							<td>@Model.ProjectTitle برند @Model.BrandTitle</td>
+
+						</tr>
+
+						<tr>
+							<td class="td-heading">ساعت شروع کار</td>
+							<td>@Model.StartTime</td>
+							<td class="td-heading">ساعت پایان کار</td>
+							<td>@Model.FinishTime</td>
+						</tr>
+
+						<tr>
+							<td class="td-heading">فروشگاه</td>
+							<td>@Model.StoreTitle</td>
+							<td class="td-heading">ناظر</td>
+							<td>@Model.SupervisorFullname</td>
+						</tr>
+
+						<tr>
+							<td class="td-heading">توضیحات</td>
+							<td colspan="3">@Model.Description</td>
+						</tr>
+
+						<tr>
+							<td class="td-heading">ضمائم پروژه</td>
+							<td colspan="3">
+								@foreach (var attachment in Model.ProjectAttachments)
+								{
+										<a href="@attachment" class="mb-2 mr-2 btn-transition btn btn-outline-success" target="_blank"><i class="fa fa-download"></i> دانلود</a>
+								}
+							</td>
+
+						</tr>
+					</table>
+				</div>
+			</div>
+
+			@if (!Model.IsStart)
+			{
+					<div class="row dirright">
+						<div class="col-md-12" style="text-align: center;">
+							<button type="button" class="mb-2 mr-2 btn btn-success btn-start" id="location-button" onclick="locationStart('@ViewBag.dailyPromoterPlanId');">شروع کار روزانه</button>
+						</div>
+					</div>
+			}
+
+			<div class="row dirright">
+				<div class="col-md-12">
+
+					<div class="card-product">
+						<div class="card-product-header">
+							<h2>محصولات</h2>
+						</div>
+						<div class="card-product-body">
+							<table class="table table-bordered table-striped table-responsive-stack table-product">
+								<thead>
+									<tr>
+										<th>محصول</th>
+										<th>میزان فروش</th>
+										<th>توضیحات پروموتر</th>
+										<th>به روزرسانی</th>
+									</tr>
+								</thead>
+
+								<tbody>
+									@foreach (var product in Model.ProjectProducts)
+								{
+									<tr>
+										<td>
+											<div class="product-img">
+												<img class="img-responsive" src="@product.ImageUrl" />
+											</div>
+											<div class="product-info">
+												<h3>@product.ProductTitle</h3>
+												<dfn>@product.ProductDescription</dfn>
+											</div>
+											<div class="clearfix"></div>
+										</td>
+										<td>
+											<input type="number" id="qty_@product.ProductId" placeholder="تعداد فروش" value="@product.Count" />
+										</td>
+										<td>
+											<textarea id="desc_@product.ProductId" placeholder="توضیحات پروموتر">@product.PromoterDesc</textarea>
+
+										</td>
+										<td>
+											<button type="button" class="mb-2 mr-2 btn btn-primary" onclick="updateSell('@product.ProductId','@ViewBag.dailyPromoterPlanId')">به روز رسانی ردیف</button>
+									
+										<i class="fa fa-check-circle alert-success-custom"  id="alert-success_@product.ProductId"></i>
+										<i class="fa fa-stop-circle alert-danger-custom"  id="alert-danger_@product.ProductId"></i>
+										</td>
+									</tr>
+								}
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+
+
+
+				</div>
+			</div>
+
+
+			<div class="row dirright">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
+
+					<div class="card-product">
+						<div class="card-product-header">
+							<h2>ضمائم پروموتر</h2>
+						</div>
+						<div class="card-product-body">
+							<div class="promoter-attch clearfix">
+
+								@using (Html.BeginForm())
+								{
+								@Html.AntiForgeryToken()
+
+								@Html.Kendo().Upload().Name("attachments").Multiple(true).HtmlAttributes(new {@class = "form-control"})
+
+								<button type="submit" class="btn btn-success">بارگزاری</button>
+								}
+							</div>
+							<table class="table table-bordered table-striped table-responsive-stack table-product">
+								<thead>
+									<tr>
+										<th>ضمیمه</th>
+										<th>حذف</th>
+									</tr>
+								</thead>
+
+								<tbody>
+									@foreach (var attachment in Model.DailyPromoterPlanAttachments)
+								{
+									<tr>
+										<td>
+											<a href="@attachment.FileUrl" class="mb-2 mr-2 btn-transition btn btn-outline-success" target="_blank"><i class="fa fa-download"></i> دانلود</a>
+										</td>
+
+										<td>
+											<a href="/DailyPromoterPlanAttachments/DeleteByPromoter/@attachment.Id" class="mb-2 mr-2 btn btn-primary"> حذف</a>
+										</td>
+									</tr>
+								}
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+
+
+
+				</div>
+			</div>
+
+
+			@if (Model.IsStart && !Model.IsFinish)
+			{
+					<div class="row dirright">
+						<div class="col-md-12" style="text-align: center;">
+							<button type="button" class="mb-2 mr-2 btn btn-danger btn-start" id="location-button-end" onclick="locationEnd('@ViewBag.dailyPromoterPlanId');">پایان کار روزانه</button>
+						</div>
+					</div>
+			}
+		</div>
+	</div>
+</div>

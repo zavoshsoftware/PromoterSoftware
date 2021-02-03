@@ -1,0 +1,74 @@
+﻿@model Models.DailyPromoterProductSale
+
+@{
+    ViewBag.Title = "ویرایش " + Server.HtmlDecode(Html.DisplayNameFor(model => model).ToString());
+}
+
+
+<div class="col-md-4">
+    <div class="main-card mb-3 card">
+        @ViewBag.description
+    </div>
+</div>
+                        
+<div class="col-md-8">
+<div class="main-card mb-3 card">
+<div class="card-body">
+
+
+@using (Html.BeginForm("Edit", "DailyPromoterProductSales",FormMethod.Post, new { enctype = "multipart/form-data" })) 
+{
+    @Html.AntiForgeryToken()
+    
+        @Html.HiddenFor(model => model.Id)
+
+         <div class="position-relative form-group">
+            @Html.LabelFor(model => model.Count)
+                                     <input name="Count" id="Count" placeholder= "@Html.DisplayNameFor(m=>m.Count)" type="text" class="form-control" value="@Model.Count">
+                @Html.ValidationMessageFor(model => model.Count)
+            </div>
+       
+
+         <div class="position-relative form-group">
+            @Html.LabelFor(model => model.ProjectProductId)
+                @Html.DropDownList("ProjectProductId",null, String.Empty,new{ @class= "form-control" })
+                @Html.ValidationMessageFor(model => model.ProjectProductId)
+            </div>
+       
+
+         <div class="position-relative form-group">
+            @Html.LabelFor(model => model.DailyPromoterPlanId)
+                @Html.DropDownList("DailyPromoterPlanId",null, String.Empty,new{ @class= "form-control" })
+                @Html.ValidationMessageFor(model => model.DailyPromoterPlanId)
+            </div>
+       
+
+        	<div class="position-relative form-check">
+			 <label class="form-check-label">
+			     @Html.CheckBoxFor(model => model.IsActive)
+			 @Html.DisplayNameFor(m => m.IsActive)
+			 </label>    
+                                             @Html.ValidationMessageFor(model => model.IsActive)
+            </div>
+       
+
+	 @Html.HiddenFor(model => model.CreationDate)
+         <div class="position-relative form-group">
+            @Html.LabelFor(model => model.Description)
+                                 <textarea name="Description" id="Description" placeholder= "@Html.DisplayNameFor(m=>m.Description)" class="form-control"></textarea>
+                @Html.ValidationMessageFor(model => model.Description)
+            </div>
+       
+
+   <div class="button-box">
+                <input type="submit" value="ثبت" class="btn btn-primary" />
+				@Html.ActionLink("بازگشت به فهرست", "Index")
+           
+        </div>
+        
+  
+}
+        </div>
+        </div>
+        </div>
+

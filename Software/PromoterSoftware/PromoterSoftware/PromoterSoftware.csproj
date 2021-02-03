@@ -192,7 +192,10 @@
     <Content Include="assets\images\logo-inverse.png" />
     <Content Include="assets\images\logo.png" />
     <Content Include="assets\main.css" />
+    <Content Include="assets\responsive-table.css" />
+    <Content Include="assets\scripts\functions-promoter.js" />
     <Content Include="assets\scripts\kendo.modernizr.custom.js" />
+    <Content Include="assets\scripts\responsive-table.js" />
     <Content Include="assets\_main.css" />
     <Content Include="assets\scripts\main.js" />
     <Content Include="assets\style-rtl.css" />
@@ -799,7 +802,9 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Controllers\DailyPromoterPlanAttachmentsController.cs" />
     <Compile Include="Controllers\DailyPromoterPlansController.cs" />
+    <Compile Include="Controllers\DailyPromoterProductSalesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProjectAttachmentsController.cs" />
     <Compile Include="Controllers\ProjectDetailPromotersController.cs" />
@@ -835,6 +840,18 @@
     <Compile Include="Migrations\202101310925566_V05.designer.cs">
       <DependentUpon>202101310925566_V05.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102011916137_V06.cs" />
+    <Compile Include="Migrations\202102011916137_V06.designer.cs">
+      <DependentUpon>202102011916137_V06.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102020738379_V07.cs" />
+    <Compile Include="Migrations\202102020738379_V07.designer.cs">
+      <DependentUpon>202102020738379_V07.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102020822211_V08.cs" />
+    <Compile Include="Migrations\202102020822211_V08.designer.cs">
+      <DependentUpon>202102020822211_V08.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DatabaseContext.cs" />
     <Compile Include="Models\DatabaseContextInitializer.cs" />
@@ -858,8 +875,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\CityItemViewModel.cs" />
+    <Compile Include="ViewModels\ChangePasswordViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\ProjectDetailPromoterViewModel.cs" />
+    <Compile Include="ViewModels\PromoterDailyPlanActionViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -1069,6 +1088,23 @@
     <Content Include="Views\DailyPromoterPlans\Index.cshtml" />
     <Content Include="Views\ProjectProducts\List.cshtml" />
     <Content Include="Views\ProjectAttachments\List.cshtml" />
+    <Content Include="Views\DailyPromoterPlans\PromoterDailyPlanAction.cshtml" />
+    <Content Include="Views\DailyPromoterPlanAttachments\Create.cshtml" />
+    <Content Include="Views\DailyPromoterPlanAttachments\Delete.cshtml" />
+    <Content Include="Views\DailyPromoterPlanAttachments\Details.cshtml" />
+    <Content Include="Views\DailyPromoterPlanAttachments\Edit.cshtml" />
+    <Content Include="Views\DailyPromoterPlanAttachments\Index.cshtml" />
+    <Content Include="Views\DailyPromoterProductSales\Create.cshtml" />
+    <Content Include="Views\DailyPromoterProductSales\Delete.cshtml" />
+    <Content Include="Views\DailyPromoterProductSales\Details.cshtml" />
+    <Content Include="Views\DailyPromoterProductSales\Edit.cshtml" />
+    <Content Include="Views\DailyPromoterProductSales\Index.cshtml" />
+    <Content Include="Views\DailyPromoterPlans\PromoterIndex.cshtml" />
+    <Content Include="Views\DailyPromoterPlans\PromoterDailyPlanActionById.cshtml" />
+    <Content Include="Views\DailyPromoterPlans\NoPlan.cshtml" />
+    <Content Include="Views\Users\EditByUser.cshtml" />
+    <Content Include="Views\Users\ChangePassword.cshtml" />
+    <Content Include="Views\DailyPromoterPlans\ShowMap.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1080,6 +1116,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Uploads\ProjectAttachments\" />
     <Folder Include="Uploads\ProjectProduct\" />
+    <Folder Include="Uploads\PromoterAttachment\" />
     <Folder Include="Uploads\User\" />
   </ItemGroup>
   <ItemGroup>
@@ -1097,6 +1134,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101310925566_V05.resx">
       <DependentUpon>202101310925566_V05.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102011916137_V06.resx">
+      <DependentUpon>202102011916137_V06.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102020738379_V07.resx">
+      <DependentUpon>202102020738379_V07.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102020822211_V08.resx">
+      <DependentUpon>202102020822211_V08.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

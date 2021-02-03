@@ -24,7 +24,9 @@
 							.Template(@<text>
 									@Html.ActionLink("ویرایش", "Edit", new { id = @item.Id }, new { @class = "mb-2 mr-2 btn btn-primary" })
 					@Html.ActionLink("حذف", "Delete", new { id = @item.Id }, new { @class = "mb-2 mr-2 btn btn-warning" })
-									</text>).Width(200);
+									@Html.ActionLink("پروموترها", "Index","ProjectDetailPromoters", new { id = @item.Id }, new { @class = "mb-2 mr-2 btn btn-info" })
+					
+							           </text>).Width(200);
 							})
 		.ToolBar(toolbar =>
 		{

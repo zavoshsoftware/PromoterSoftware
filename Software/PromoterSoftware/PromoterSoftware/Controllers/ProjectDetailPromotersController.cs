@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Helpers;
 using Models;
 using ViewModels;
 
@@ -15,7 +16,6 @@ namespace PromoterSoftware.Controllers
     {
         private DatabaseContext db = new DatabaseContext();
 
-        // GET: ProjectDetailPromoters
         public ActionResult Index(Guid id)
         {
             ProjectDetailPromoterViewModel result = new ProjectDetailPromoterViewModel();
@@ -103,12 +103,10 @@ namespace PromoterSoftware.Controllers
             return View();
         }
 
-        // POST: ProjectDetailPromoters/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,UserId,ProjectDetailId,IsFullTime,IsActive,CreationDate,LastModifiedDate,IsDeleted,DeletionDate,Description")] ProjectDetailPromoter projectDetailPromoter)
+        public ActionResult Create(ProjectDetailPromoter projectDetailPromoter)
         {
             if (ModelState.IsValid)
             {
@@ -125,7 +123,6 @@ namespace PromoterSoftware.Controllers
             return View(projectDetailPromoter);
         }
 
-        // GET: ProjectDetailPromoters/Edit/5
         public ActionResult Edit(Guid? id)
         {
             if (id == null)
@@ -142,12 +139,9 @@ namespace PromoterSoftware.Controllers
             return View(projectDetailPromoter);
         }
 
-        // POST: ProjectDetailPromoters/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,UserId,ProjectDetailId,IsFullTime,IsActive,CreationDate,LastModifiedDate,IsDeleted,DeletionDate,Description")] ProjectDetailPromoter projectDetailPromoter)
+        public ActionResult Edit(ProjectDetailPromoter projectDetailPromoter)
         {
             if (ModelState.IsValid)
             {
@@ -161,7 +155,6 @@ namespace PromoterSoftware.Controllers
             return View(projectDetailPromoter);
         }
 
-        // GET: ProjectDetailPromoters/Delete/5
         public ActionResult Delete(Guid? id)
         {
             if (id == null)
@@ -176,7 +169,6 @@ namespace PromoterSoftware.Controllers
             return View(projectDetailPromoter);
         }
 
-        // POST: ProjectDetailPromoters/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
@@ -197,5 +189,8 @@ namespace PromoterSoftware.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+      
     }
 }

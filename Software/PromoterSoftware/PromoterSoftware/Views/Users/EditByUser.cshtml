@@ -1,0 +1,100 @@
+﻿@model Models.User
+
+@{
+		ViewBag.Title = "ویرایش پروفایل";
+}
+
+@section styles{
+	@Html.Partial("BackEndLayout/_KendoResourcesPartial")
+}
+
+<div class="col-md-4">
+	<div class="main-card mb-3 card">
+		@ViewBag.description
+	</div>
+</div>
+
+<div class="col-md-8">
+	<div class="main-card mb-3 card">
+		<div class="card-body">
+
+
+			@using (Html.BeginForm("EditByUser", "Users", FormMethod.Post, new { enctype = "multipart/form-data" }))
+			{
+					@Html.AntiForgeryToken()
+
+					@Html.HiddenFor(model => model.Id)
+					@Html.HiddenFor(model => model.RoleId)
+					@Html.HiddenFor(model => model.Password)
+					@Html.HiddenFor(model => model.Code)
+					@Html.HiddenFor(model => model.AvatarImageUrl)
+					@Html.HiddenFor(model => model.NationalCardFileUrl)
+					@Html.HiddenFor(model => model.IsActive)
+					@Html.HiddenFor(model => model.Description)
+					<div class="position-relative form-group">
+						@Html.LabelFor(model => model.FullName)
+						<input name="FullName" id="FullName" placeholder="@Html.DisplayNameFor(m=>m.FullName)" type="text" class="form-control" value="@Model.FullName">
+						@Html.ValidationMessageFor(model => model.FullName)
+					</div>
+
+
+						<div class="position-relative form-group">
+							@Html.LabelFor(model => model.CellNum)
+							<input name="CellNum" id="CellNum" placeholder="@Html.DisplayNameFor(m=>m.CellNum)" type="text" class="form-control" value="@Model.CellNum">
+							@Html.ValidationMessageFor(model => model.CellNum)
+						</div>
+						
+
+						<div class="position-relative form-group">
+							@Html.LabelFor(model => model.NationalCode)
+							<input name="NationalCode" id="NationalCode" placeholder="@Html.DisplayNameFor(m=>m.NationalCode)" type="text" class="form-control" value="@Model.NationalCode">
+							@Html.ValidationMessageFor(model => model.NationalCode)
+						</div>
+						<div class="position-relative form-group">
+							<label>@Html.LabelFor(model => model.AvatarImageUrl)</label>
+							@Html.Kendo().Upload().Name("fileUploadAvatar").Multiple(false).HtmlAttributes(new { @class = "form-control" })
+						</div>
+
+						<div class="position-relative form-group">
+							<label>@Html.LabelFor(model => model.NationalCardFileUrl)</label>
+							@Html.ValidationMessageFor(model => model.NationalCardFileUrl)
+							@Html.Kendo().Upload().Name("fileUpload").Multiple(false).HtmlAttributes(new { @class = "form-control" })
+
+							@if (!string.IsNullOrEmpty(Model.NationalCardFileUrl))
+							{
+									<a href="@Model.NationalCardFileUrl" target="_blank" class="btn btn-info">دانلود</a>
+							}
+						</div>
+
+
+
+						<div class="position-relative form-group">
+							@Html.LabelFor(model => model.CityId)
+							@Html.DropDownList("CityId", null, String.Empty, new { @class = "form-control" })
+							@Html.ValidationMessageFor(model => model.CityId)
+						</div>
+
+
+
+						<div style="display: none;">@Html.EditorFor(model => model.CreationDate)</div>
+
+
+						<div class="button-box">
+							<input type="submit" value="ثبت" class="btn btn-primary" />
+							@if (TempData["suucess"] != null)
+							{
+								<p class="alert alert-success">@TempData["suucess"]</p>
+							}
+							@if (TempData["error"] != null)
+							{
+								<p class="alert alert-danger">@TempData["error"]</p>
+							}
+
+						</div>
+
+
+			}
+		</div>
+	</div>
+</div>
+

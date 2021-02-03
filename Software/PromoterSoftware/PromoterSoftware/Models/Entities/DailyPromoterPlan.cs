@@ -1,4 +1,4 @@
-﻿ 
+﻿
 
 using System.Data.Entity.ModelConfiguration;
 
@@ -23,7 +23,7 @@ namespace Models
         [Display(Name = "پروموتر - پروژه")]
         public Guid ProjectDetailPromoterId { get; set; }
         public virtual ProjectDetailPromoter ProjectDetailPromoter { get; set; }
-         
+
         [Display(Name = "روز کاری")]
         [UIHint("PersianDatePicker")]
         public DateTime ShiftDate { get; set; }
@@ -40,13 +40,13 @@ namespace Models
         public int? FinishMin { get; set; }
 
 
- 
 
-        public decimal? StartLat { get; set; }
-        public decimal? StartLong { get; set; }
 
-        public decimal? FinishLat { get; set; }
-        public decimal? FinishLong { get; set; }
+        public string StartLat { get; set; }
+        public string StartLong { get; set; }
+
+        public string FinishLat { get; set; }
+        public string FinishLong { get; set; }
 
         public virtual ICollection<DailyPromoterPlanAttachment> DailyPromoterPlanAttachments { get; set; }
         public virtual ICollection<DailyPromoterProductSale> DailyPromoterProductSales { get; set; }
@@ -75,12 +75,29 @@ namespace Models
 
         [NotMapped]
         [Display(Name = "ساعت شروع کار")]
-        public string StartHourStr { get { return StartHour + ":" + StartMin; } }
+        public string StartHourStr
+        {
+            get
+            {
+                if (StartHour != null)
+                    return StartHour + ":" + StartMin;
+                return "-";
+            }
+        }
 
 
         [Display(Name = "ساعت پایان کار")]
         [NotMapped]
-        public string FinishHourStr { get { return FinishHour + ":" + FinishMin; } }
+        public string FinishHourStr
+        {
+            get
+            {
+                if (FinishHour != null)
+                    return FinishHour + ":" + FinishMin;
+                return "-";
+
+            }
+        }
 
 
     }

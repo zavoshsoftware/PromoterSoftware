@@ -1,0 +1,32 @@
+﻿
+
+@section styles{
+	@Html.Partial("BackEndLayout/_KendoResourcesPartial")
+}
+<div class="col-md-12">
+	<div class="main-card mb-3 card">
+		<div class="card-body">
+			<div id="map" style="width:400px;height:400px;background:yellow"></div>
+
+			<script>
+
+				function myMap() {
+					var mapCanvas = document.getElementById("map");
+					var mapOptions = {
+						center: new google.maps.LatLng(@ViewBag.mapLat, @ViewBag.mapLong), zoom: 15
+					};
+
+					var map = new google.maps.Map(mapCanvas, mapOptions);
+				}
+
+			</script>
+
+ 
+			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-2WaSzq_SCnep0Q6BC3-xGjeCsqcVJyw&callback=myMap"></script>
+		</div>
+	</div>
+</div>
+
+@section scripts{
+	 
+}
